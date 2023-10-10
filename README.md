@@ -1,2 +1,2 @@
 ## User Card
-### - [сслыка на проект](https://mister-eighth.github.io/landing-legal-help/)
+### - [link to the project](https://mister-eighth.github.io/user-card/)
