@@ -64,6 +64,7 @@ let isDragging = false;
 let startX;
 let scrollLeft;
 
+// Мышиные события
 partnersWrapper.addEventListener('mousedown', (e) => {
     isDragging = true;
     startX = e.pageX - partnersWrapper.offsetLeft;
@@ -86,6 +87,25 @@ partnersWrapper.addEventListener('mousemove', (e) => {
     partnersWrapper.scrollLeft = scrollLeft - walk;
 });
 
+// Сенсорные события
+partnersWrapper.addEventListener('touchstart', (e) => {
+    isDragging = true;
+    startX = e.touches[0].pageX - partnersWrapper.offsetLeft;
+    scrollLeft = partnersWrapper.scrollLeft;
+});
+
+partnersWrapper.addEventListener('touchend', () => {
+    isDragging = false;
+});
+
+partnersWrapper.addEventListener('touchmove', (e) => {
+    if (!isDragging) return; // остановить, если не перетаскиваем
+    e.preventDefault();
+    const x = e.touches[0].pageX - partnersWrapper.offsetLeft;
+    const walk = (x - startX) * 2; // Чересчур быстрое прокручивание
+    partnersWrapper.scrollLeft = scrollLeft - walk;
+});
+
 // Прокрутка кнопками
 document.getElementById('next').addEventListener('click', () => {
     partnersWrapper.scrollLeft += 100; // Сколько прокручивать при клике на кнопку
@@ -97,6 +117,7 @@ document.getElementById('prev').addEventListener('click', () => {
 </script>
 </body>
 </html>
+
 
 
 
