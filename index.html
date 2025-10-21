@@ -1,31 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+.partners-wrapper {
+    overflow-x: auto;
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 1em;
+    width: 600px;
+}
+
+.partners-items {
+    padding: 2em;
+    display: inline-flex;
+    padding: 0;
+    margin: 0;
+}
+
+.partners-item {
+    list-style: none;
+    margin: 0 10px;
+    border: 0.2vw solid black;
+    max-width: 256px;
+    min-width: 180px;
+}
+
+.partners-item img{
+	border-radius: 2.5em;
+	width: 100%;
+	height: auto;
+	object-fit: cover;
+}
+</style>
 </head>
 <body>
-  
-  <div class="wrapper">
-    <div class="cards-wrapper">
-
-      <div class="card">
-        <div class="card-body">
-          <img class="user-img" src="./img/user1.jpg" alt="">
-          <span class="user-fullname">Name</span>
-          <span class="user-career">Сareer</span>  
-        </div>
-      </div>
-
-
+<div class="partners-container">
+    <h2>Наши заказчики</h2>
+    <div class="partners-wrapper" id="partners-wrapper">
+        <ul class="partners-items" id="partners-items">
+            <li class="partners-item"><img src="resources/images/partners/door-han.webp" alt=""></li>
+            <li class="partners-item"><img src="resources/images/partners/автошкола-ника.webp" alt=""></li>
+            <li class="partners-item"><img src="resources/images/partners/админитсрация-гулькевичи.webp" alt=""></li>
+            <li class="partners-item"><img src="resources/images/partners/либирти-клининг.webp" alt=""></li>
+            <li class="partners-item"><img src="resources/images/partners/пэк.webp" alt=""></li>
+            <li class="partners-item"><img src="resources/images/partners/цмт.webp" alt=""></li>
+            <li class="partners-item"><img src="resources/images/partners/door-han.webp" alt=""></li>
+            <li class="partners-item"><img src="resources/images/partners/автошкола-ника.webp" alt=""></li>
+            <li class="partners-item"><img src="resources/images/partners/админитсрация-гулькевичи.webp" alt=""></li>
+            <li class="partners-item"><img src="resources/images/partners/либирти-клининг.webp" alt=""></li>
+            <li class="partners-item"><img src="resources/images/partners/пэк.webp" alt=""></li>
+            <li class="partners-item"><img src="resources/images/partners/цмт.webp" alt=""></li>
     </div>
+    <button class="partners-btn partners-btn-prev" id="prev">&#10094;</button>
+    <button class="partners-btn partners-btn-next" id="next">&#10095;</button>
+</div>
 
+<script>
+const partnersWrapper = document.getElementById('partners-wrapper');
+let isDragging = false;
+let startX;
+let scrollLeft;
 
+partnersWrapper.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    startX = e.pageX - partnersWrapper.offsetLeft;
+    scrollLeft = partnersWrapper.scrollLeft;
+});
 
-  </div>
+partnersWrapper.addEventListener('mouseleave', () => {
+    isDragging = false;
+});
 
-  <script src="./script.js"></script>
+partnersWrapper.addEventListener('mouseup', () => {
+    isDragging = false;
+});
+
+partnersWrapper.addEventListener('mousemove', (e) => {
+    if (!isDragging) return; // остановить, если не перетаскиваем
+    e.preventDefault();
+    const x = e.pageX - partnersWrapper.offsetLeft;
+    const walk = (x - startX) * 2; // Чересчур быстрое прокручивание
+    partnersWrapper.scrollLeft = scrollLeft - walk;
+});
+
+// Прокрутка кнопками
+document.getElementById('next').addEventListener('click', () => {
+    partnersWrapper.scrollLeft += 100; // Сколько прокручивать при клике на кнопку
+});
+
+document.getElementById('prev').addEventListener('click', () => {
+    partnersWrapper.scrollLeft -= 100; // Сколько прокручивать при клике на кнопку
+});
+</script>
 </body>
 </html>
